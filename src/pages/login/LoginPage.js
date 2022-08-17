@@ -8,18 +8,23 @@ import { Button } from "react-bootstrap";
 import { useState } from "react";
 import { loginUserAction } from "./userActions";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 const LoginPage = () => {
   const [form, setForm] = useState({});
+  const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { user } = useSelector((state) => state.admin);
 
+  const origin =
+    (location.state && location.state.from && location.state.from.pathname) ||
+    "/dashboard";
+
   useEffect(() => {
-    user._id && navigate("/dashboard");
+    user._id && navigate(origin);
   }, [user, navigate]);
 
   const handleOnchange = (e) => {
