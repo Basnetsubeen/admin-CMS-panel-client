@@ -53,6 +53,7 @@ const LoginPage = () => {
               name="email"
               required={true}
               placeholder="Your@email.com"
+              // value="neymar11@.com"
             />
             <CustomInputField
               onChange={handleOnchange}
