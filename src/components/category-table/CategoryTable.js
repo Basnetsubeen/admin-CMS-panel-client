@@ -3,21 +3,34 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   deleteCategoriesAction,
   getCategoriesAction,
-} from "../../pages/categories/ CatefgoryAction";
-import { useEffect } from "react";
+} from "../../pages/categories/ CategoryAction";
+import { useEffect, useState } from "react";
 import { Button, Row, Table } from "react-bootstrap";
+import { setModalShow } from "../../pages/system-state/SytemSlice.js";
+import EditCategoryForm from "../category-form/EditCategoryForm.js";
 
 const CategoryTable = () => {
+  const [selectedCategory, setSelectedCategory] = useState({});
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.category);
   useEffect(() => {
     dispatch(getCategoriesAction());
   }, []);
 
+  const handleOnEdit = (category) => {
+    setSelectedCategory(category);
+    dispatch(setModalShow());
+  };
+  const handleOnDelete = (_id) => {
+    if (window.confirm("Are you sure you want to delete?")) {
+      dispatch(deleteCategoriesAction(_id));
+    }
+  };
   const parentCategory = categories.filter(({ parentId }) => !parentId); // destructruing(item => !item.parentId)
   const childCategory = categories.filter(({ parentId }) => parentId); // destructruing(item => !item.parentId)
   return (
     <Row>
+      <EditCategoryForm selectedCategory={selectedCategory} />
       <Table striped hover bordered>
         <thead>
           <tr>
@@ -32,15 +45,28 @@ const CategoryTable = () => {
             parentCategory.map((item) => (
               <>
                 <tr key={item._id} className="bg-info">
-                  <td>{item.status}</td>
+                  <td
+                    className={
+                      item.status === "active" ? "text-success" : "text-danger"
+                    }
+                  >
+                    {item.status}
+                  </td>
                   <td>{item.name}</td>
                   <td>{item.parentId ? "chidren" : "Parent"}</td>
                   <td>
                     <Button
                       variant="danger"
-                      onClick={() => dispatch(deleteCategoriesAction(item._id))}
+                      onClick={() => handleOnDelete(item._id)}
                     >
                       Delete
+                    </Button>
+                    {"  "}
+                    <Button
+                      variant="warning"
+                      onClick={() => handleOnEdit(item)}
+                    >
+                      Edit
                     </Button>
                   </td>
                 </tr>
@@ -49,17 +75,30 @@ const CategoryTable = () => {
                   (child) =>
                     child.parentId === item._id && (
                       <tr key={child._id}>
-                        <td>{child.status}</td>
+                        <td
+                          className={
+                            child.status === "active"
+                              ? "text-success"
+                              : "text-danger"
+                          }
+                        >
+                          {child.status}
+                        </td>
                         <td>{child.name}</td>
                         <td>{child.parentId ? "chidren" : "Parent"}</td>
                         <td>
                           <Button
                             variant="danger"
-                            onClick={() =>
-                              dispatch(deleteCategoriesAction(child._id))
-                            }
+                            onClick={() => handleOnDelete(child._id)}
                           >
                             Delete
+                          </Button>
+                          {"  "}
+                          <Button
+                            variant="warning"
+                            onClick={() => handleOnEdit(child)}
+                          >
+                            Edit
                           </Button>
                         </td>
                       </tr>

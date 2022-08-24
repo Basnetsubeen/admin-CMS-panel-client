@@ -60,6 +60,14 @@ export const postCategory = (data) => {
   };
   return apiProcessor(option);
 };
+export const UpdateCategory = (data) => {
+  const option = {
+    method: "put",
+    url: categoryEP,
+    data,
+  };
+  return apiProcessor(option);
+};
 
 //fetch categories
 export const fetchCategory = (_id) => {

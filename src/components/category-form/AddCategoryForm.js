@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import { postCategoriesAction } from "../../pages/categories/ CatefgoryAction";
+import { postCategoriesAction } from "../../pages/categories/ CategoryAction";
 const initialState = {
   status: "inactive",
   name: "",
