@@ -6,7 +6,7 @@ import CustomInputField from "../../customInputField/CustomInputField";
 import { Form } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { useState } from "react";
-import { loginUserAction } from "./userActions";
+import { autoLogin, loginUserAction } from "./userActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -24,8 +24,8 @@ const LoginPage = () => {
     "/dashboard";
 
   useEffect(() => {
-    user._id && navigate(origin);
-  }, [user, navigate]);
+    user._id ? navigate(origin) : dispatch(autoLogin());
+  }, [user, navigate, dispatch]);
 
   const handleOnchange = (e) => {
     const { name, value } = e.target;
@@ -53,7 +53,7 @@ const LoginPage = () => {
               name="email"
               required={true}
               placeholder="Your@email.com"
-              // value="neymar11@.com"
+              // value="neymar@11.com"
             />
             <CustomInputField
               onChange={handleOnchange}
@@ -62,6 +62,7 @@ const LoginPage = () => {
               name="password"
               required={true}
               placeholder="*******"
+              // value="12"
             />
             <Button variant="primary" type="submit">
               Login
