@@ -1,8 +1,26 @@
 import React from "react";
+import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import AdminLayout from "../../components/layout/AdminLayout";
+import ProductTable from "../../components/product-table/ProductTable";
 
 const Product = () => {
-  return <AdminLayout>Product</AdminLayout>;
+  return (
+    <AdminLayout>
+      <h1>Products</h1>
+      <div className="text-end">
+        <Link to="/product/new">
+          <Button variant="primary">
+            <i className="fa-solid fa-plus"></i> Add New Products
+          </Button>
+        </Link>
+        <hr />
+        <div className="product-list mt-5">
+          <ProductTable />
+        </div>
+      </div>
+    </AdminLayout>
+  );
 };
 
 export default Product;

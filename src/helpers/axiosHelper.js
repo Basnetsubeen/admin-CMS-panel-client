@@ -4,6 +4,7 @@ const rootUrl = process.env.REACT_APP_API_ENDPOINT;
 const adminUserEP = rootUrl + "/admin-user";
 const categoryEP = rootUrl + "/category";
 const paymentMethodEP = rootUrl + "/payment-method";
+const productEP = rootUrl + "/product";
 
 const apiProcessor = async ({ method, url, data, isPrivate, token }) => {
   try {
@@ -171,6 +172,17 @@ export const deletePaymentMethod = (_id) => {
   const option = {
     method: "delete",
     url: paymentMethodEP + "/" + _id,
+    isPrivate: true,
+  };
+  return apiProcessor(option);
+};
+
+//==========Poduct apis ===========//
+//fetch payment Method
+export const fetchProducts = () => {
+  const option = {
+    method: "get",
+    url: productEP,
     isPrivate: true,
   };
   return apiProcessor(option);

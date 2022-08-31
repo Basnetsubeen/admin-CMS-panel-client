@@ -4,10 +4,7 @@ import CustomInputField from "../../customInputField/CustomInputField";
 import { CustomModel } from "../model/CustomModel";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  postPaymentMethodAction,
-  updatePaymentMethodAction,
-} from "../../pages/payment-method/paymentAction";
+import { updatePaymentMethodAction } from "../../pages/payment-method/paymentAction";
 
 const initialState = {
   status: "",
