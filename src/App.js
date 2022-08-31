@@ -9,6 +9,7 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import Product from "./pages/products/Product";
 import Category from "./pages/categories/category";
 import PrivateRouter from "./components/private-router/PrivateRouter";
+import PaymentMethod from "./pages/payment-method/PaymentMethod";
 function App() {
   return (
     <div className="App">
@@ -37,6 +38,14 @@ function App() {
             element={
               <PrivateRouter>
                 <Category />
+              </PrivateRouter>
+            }
+          ></Route>
+          <Route
+            path="/payment-method"
+            element={
+              <PrivateRouter>
+                <PaymentMethod />
               </PrivateRouter>
             }
           ></Route>

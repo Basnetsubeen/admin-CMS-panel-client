@@ -29,7 +29,6 @@ export const adminLogout = () => (dispatch) => {
 export const getAdminUserAction = (token) => async (dispatch) => {
   const { status, message, user } = await getAdminUser(token);
   status === "success" && dispatch(setAdminUsers(user));
-  console.log(user);
 };
 export const autoLogin = () => async (dispatch) => {
   const accessJWT = sessionStorage.getItem("accessJWT");

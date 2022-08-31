@@ -35,7 +35,11 @@ const SideMenu = () => {
               </Link>
             </ListGroup.Item>
             <ListGroup.Item>
-              <Link onClick={handleClose} to="" className="nav-link">
+              <Link
+                onClick={handleClose}
+                to="/payment-method"
+                className="nav-link"
+              >
                 <i className="fa-solid fa-credit-card"></i> Payment Method
               </Link>
             </ListGroup.Item>
