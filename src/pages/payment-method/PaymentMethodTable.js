@@ -2,7 +2,10 @@ import React from "react";
 import Table from "react-bootstrap/Table";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getPaymentMethodAction } from "./paymentAction";
+import {
+  deletePaymentMethodAction,
+  getPaymentMethodAction,
+} from "./paymentAction";
 import { Button } from "react-bootstrap";
 
 const PaymentMethodTable = () => {
@@ -12,6 +15,12 @@ const PaymentMethodTable = () => {
   useEffect(() => {
     dispatch(getPaymentMethodAction());
   }, [dispatch]);
+
+  const handleOnDelete = (_id) => {
+    if (window.confirm("Are you sure you want to delete this payment method")) {
+      dispatch(deletePaymentMethodAction(_id));
+    }
+  };
   return (
     <div>
       <Table striped bordered hover>
@@ -31,7 +40,12 @@ const PaymentMethodTable = () => {
               <td>{item.name}</td>
               <td>
                 <Button variant="warning">Edit</Button>{" "}
-                <Button variant="danger">Delete</Button>
+                <Button
+                  variant="danger"
+                  onClick={() => handleOnDelete(item._id)}
+                >
+                  Delete
+                </Button>
               </td>
             </tr>
           ))}
