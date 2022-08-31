@@ -7,8 +7,11 @@ import {
   getPaymentMethodAction,
 } from "./paymentAction";
 import { Button } from "react-bootstrap";
+import EditPaymentMethod from "../../components/payment-method-forms/EditPaymentMethod";
+import AddPaymentMethod from "../../components/payment-method-forms/AddPaymentMethod";
+import { setSeletctedPaymentMethods } from "./paymentSlice";
 
-const PaymentMethodTable = () => {
+const PaymentMethodTable = ({ showForm, handleOnAddPaymentMethod }) => {
   const dispatch = useDispatch();
   const { paymentMethods } = useSelector((state) => state.paymentMethod);
 
@@ -21,8 +24,17 @@ const PaymentMethodTable = () => {
       dispatch(deletePaymentMethodAction(_id));
     }
   };
+  const handleOnEdit = (item) => {
+    dispatch(setSeletctedPaymentMethods(item));
+    handleOnAddPaymentMethod("edit");
+  };
+  const paymentMethodForm = {
+    add: <AddPaymentMethod />,
+    edit: <EditPaymentMethod />,
+  };
   return (
     <div>
+      {paymentMethodForm[showForm]}
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -39,7 +51,9 @@ const PaymentMethodTable = () => {
               <td>{item.status}</td>
               <td>{item.name}</td>
               <td>
-                <Button variant="warning">Edit</Button>{" "}
+                <Button variant="warning" onClick={() => handleOnEdit(item)}>
+                  Edit
+                </Button>{" "}
                 <Button
                   variant="danger"
                   onClick={() => handleOnDelete(item._id)}

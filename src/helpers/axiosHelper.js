@@ -156,6 +156,16 @@ export const postPaymentMethod = (data) => {
   };
   return apiProcessor(option);
 };
+//update payment method
+export const updatePaymentMethod = (data) => {
+  const option = {
+    method: "put",
+    url: paymentMethodEP,
+    isPrivate: true,
+    data,
+  };
+  return apiProcessor(option);
+};
 //delete payment method
 export const deletePaymentMethod = (_id) => {
   const option = {
