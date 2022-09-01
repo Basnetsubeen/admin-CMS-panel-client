@@ -18,6 +18,7 @@ const ProductTable = () => {
         <thead>
           <tr>
             <th>#</th>
+            <th>Thumbnail</th>
             <th>Status</th>
             <th>Name</th>
             <th>Quantity</th>
@@ -31,14 +32,22 @@ const ProductTable = () => {
           {productList.map((item, i) => (
             <tr key={i}>
               <td>{i + 1}</td>
+              <td>
+                <img
+                  src={"http://localhost:8000/" + item.thumbnail}
+                  alt=""
+                  crossOrigin="anonymous"
+                  width="130"
+                />
+              </td>
               <td>{item.status}</td>
               <td>{item.name}</td>
               <td>{item.quantity}</td>
               <td>{item.price}</td>
               <td>{item.salesPrice}</td>
               <td>
-                {item.salesStartDate && item.salesStartDate.substr(0, 10)}
-                {item.salesStartDate ? "To" : " -"}
+                {item.salesStartDate && item.salesStartDate.substr(0, 10)}{" "}
+                {item.salesStartDate ? "To" : "-"}
                 {item.salesEndDate && item.salesEndDate.substr(0, 10)}
               </td>
               <td>

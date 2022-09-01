@@ -10,7 +10,7 @@ const NewProduct = () => {
       <div className="mt-3 mb-3">
         <Link to="/product">
           <Button>
-            <i class="fa-solid fa-arrow-left"></i>
+            <i class="fa-solid fa-angle-left"></i> Back
           </Button>
         </Link>
       </div>

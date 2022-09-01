@@ -179,19 +179,30 @@ export const deletePaymentMethod = (_id) => {
 
 //==========Poduct apis ===========//
 //fetch payment Method
-export const fetchProducts = () => {
+export const fetchProducts = (_id) => {
+  const url = _id ? productEP + "/" + _id : productEP;
   const option = {
     method: "get",
-    url: productEP,
+    url,
     isPrivate: true,
   };
   return apiProcessor(option);
 };
-//post product acion
+//post product action
 export const postProducts = (data) => {
   const option = {
     method: "post",
     url: productEP,
+    isPrivate: true,
+    data,
+  };
+  return apiProcessor(option);
+};
+//delete product action
+export const deleteProducts = (_id, data) => {
+  const option = {
+    method: "delete",
+    url: productEP + "/" + _id,
     isPrivate: true,
     data,
   };
