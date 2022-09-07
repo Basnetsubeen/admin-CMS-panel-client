@@ -4,12 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import CustomInputField from "../../customInputField/CustomInputField";
 import { useEffect, useState } from "react";
 import { getCategoriesAction } from "../../pages/categories/ CategoryAction";
-import { postProductsAction } from "../../pages/products/productAction";
+import { updateProductsAction } from "../../pages/products/productAction";
 
 const initialState = {
   status: "inacitve",
-  catId: null,
   name: "",
+  catId: null,
+
   sku: "",
   quantity: "",
   price: 0,
@@ -17,14 +18,17 @@ const initialState = {
   salesStartDate: null,
   salesEndDate: null,
   description: "",
+  thumbnail: "",
 };
 
 const EditProductForm = () => {
-  const { categories } = useSelector((state) => state.category);
-  const { selectedProduct } = useSelector((state) => state.product);
   const dispatch = useDispatch();
   const [form, setForm] = useState(initialState);
   const [images, setImages] = useState([]);
+  const [imgToDelete, setImgToDelete] = useState([]);
+
+  const { categories } = useSelector((state) => state.category);
+  const { selectedProduct } = useSelector((state) => state.product);
   useEffect(() => {
     !categories.length && dispatch(getCategoriesAction());
     setForm(selectedProduct);
@@ -51,14 +55,27 @@ const EditProductForm = () => {
     e.preventDefault();
     //set data with FromData
     const formData = new FormData();
+    const { sku, slug, rating, createdAt, updatedAt, __v, ...rest } = form;
     //append form data
-    for (const key in form) {
-      formData.append(key, form[key]);
+    for (const key in rest) {
+      formData.append(key, rest[key]);
     }
     //append images
-    images.length && [...images].map((img) => formData.append("images", img));
-    dispatch(postProductsAction(formData));
+    images.length &&
+      [...images].map((img) => formData.append("newImages", img));
+    //attach the item that need to be delete
+    formData.append("imgToDelete", imgToDelete);
+    dispatch(updateProductsAction(formData));
   };
+  const handleOnImageDelete = (e) => {
+    const { checked, value } = e.target;
+    if (checked) {
+      setImgToDelete([...imgToDelete, value]);
+    } else {
+      setImgToDelete(imgToDelete.filter((img) => img !== value));
+    }
+  };
+
   const inputFields = [
     {
       name: "name",
@@ -76,6 +93,7 @@ const EditProductForm = () => {
       type: "text",
       placeholder: "Products unique code",
       required: true,
+      disabled: true,
     },
     {
       name: "quantity",
@@ -154,7 +172,11 @@ const EditProductForm = () => {
             {categories.length > 0 &&
               categories.map(
                 (item) =>
-                  item.parentId && <option value={item._id}>{item.name}</option>
+                  item.parentId && (
+                    <option value={item._id} selected={item._id === form.catId}>
+                      {item.name}
+                    </option>
+                  )
               )}
           </Form.Select>
         </Form.Group>
@@ -167,10 +189,37 @@ const EditProductForm = () => {
             }
           />
         ))}
+        <div className="my-5 d-flex flex-wrap">
+          {selectedProduct?.images &&
+            selectedProduct.images.map((imgLink) => (
+              <div className="p-1">
+                <Form.Check
+                  type="radio"
+                  label="Use as thumbnail"
+                  value={imgLink}
+                  name="thumbnail"
+                  onChange={handleOnChange}
+                  checked={imgLink === form.thumbnail}
+                />
+                <img
+                  src={process.env.REACT_APP_SERVER_ROOT + imgLink}
+                  width="150px"
+                  alt=""
+                  crossOrigin="anonymous"
+                />
+                <Form.Check
+                  label="Delete"
+                  value={imgLink}
+                  onChange={handleOnImageDelete}
+                />
+              </div>
+            ))}
+        </div>
         <Button variant="primary" type="submit">
-          Submit product
+          update product
         </Button>
       </Form>
+      <hr />
     </div>
   );
 };

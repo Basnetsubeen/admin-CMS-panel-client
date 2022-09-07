@@ -198,6 +198,15 @@ export const postProducts = (data) => {
   };
   return apiProcessor(option);
 };
+export const updateProducts = (data) => {
+  const option = {
+    method: "put",
+    url: productEP,
+    isPrivate: true,
+    data,
+  };
+  return apiProcessor(option);
+};
 //delete product action
 export const deleteProducts = (_id, data) => {
   const option = {
