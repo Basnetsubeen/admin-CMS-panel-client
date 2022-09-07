@@ -12,6 +12,7 @@ import PrivateRouter from "./components/private-router/PrivateRouter";
 import PaymentMethod from "./pages/payment-method/PaymentMethod";
 import NewProduct from "./pages/products/NewProduct";
 import EditProduct from "./pages/products/EditProduct";
+import AdminProfile from "./pages/admin-profile/AdminProfile";
 function App() {
   return (
     <div className="App">
@@ -64,6 +65,14 @@ function App() {
             element={
               <PrivateRouter>
                 <PaymentMethod />
+              </PrivateRouter>
+            }
+          ></Route>
+          <Route
+            path="/admin-profile"
+            element={
+              <PrivateRouter>
+                <AdminProfile />
               </PrivateRouter>
             }
           ></Route>

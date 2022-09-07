@@ -70,13 +70,33 @@ export const loginAdminUser = (data) => {
   };
   return apiProcessor(option);
 };
-//login admin user  account
+//get admin user  account
 export const getAdminUser = (token) => {
   const option = {
     method: "get",
     url: adminUserEP,
     isPrivate: true,
     token,
+  };
+  return apiProcessor(option);
+};
+//update user profile
+export const updateAdminUser = (data) => {
+  const option = {
+    method: "put",
+    url: adminUserEP,
+    isPrivate: true,
+    data,
+  };
+  return apiProcessor(option);
+};
+//update user password
+export const updateAdminUserPassword = (data) => {
+  const option = {
+    method: "patch",
+    url: adminUserEP,
+    isPrivate: true,
+    data,
   };
   return apiProcessor(option);
 };

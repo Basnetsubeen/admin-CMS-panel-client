@@ -10,7 +10,6 @@ const initialState = {
   status: "inacitve",
   name: "",
   catId: null,
-
   sku: "",
   quantity: "",
   price: 0,
