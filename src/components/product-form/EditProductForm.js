@@ -19,14 +19,16 @@ const initialState = {
   description: "",
 };
 
-const AddProductForm = () => {
+const EditProductForm = () => {
   const { categories } = useSelector((state) => state.category);
+  const { selectedProduct } = useSelector((state) => state.product);
   const dispatch = useDispatch();
   const [form, setForm] = useState(initialState);
   const [images, setImages] = useState([]);
   useEffect(() => {
     !categories.length && dispatch(getCategoriesAction());
-  }, [categories, dispatch]);
+    setForm(selectedProduct);
+  }, [categories, dispatch, selectedProduct]);
 
   const handleOnChange = (e) => {
     let { checked, name, value } = e.target;
@@ -173,4 +175,4 @@ const AddProductForm = () => {
   );
 };
 
-export default AddProductForm;
+export default EditProductForm;

@@ -5,10 +5,12 @@ import AdminLayout from "../../components/layout/AdminLayout";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteProductsAction, getSingleProductsAction } from "./productAction";
+import EditProductForm from "../../components/product-form/EditProductForm";
 
 const EditProduct = () => {
   const dispatch = useDispatch();
   const { _id } = useParams();
+  const { selectedProduct } = useSelector((state) => state.product);
 
   useEffect(() => {
     _id && dispatch(getSingleProductsAction(_id));
@@ -21,7 +23,7 @@ const EditProduct = () => {
       deleteProductsAction(_id, [...new Set(imgs)]);
     }
   };
-  const { selectedProduct } = useSelector((state) => state.product);
+
   return (
     <AdminLayout>
       <div className="mt-3 mb-3">
@@ -34,7 +36,9 @@ const EditProduct = () => {
       <h2>Update Product</h2>
       <hr />
 
-      <div className="">Edit Product Form Goes Here</div>
+      <div className="">
+        <EditProductForm />
+      </div>
       <div className="text-end py-3">
         <Button variant="danger" onClick={handleOnDelete}>
           Delete Product
