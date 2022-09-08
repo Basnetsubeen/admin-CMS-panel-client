@@ -100,6 +100,24 @@ export const updateAdminUserPassword = (data) => {
   };
   return apiProcessor(option);
 };
+//request otp for update user password
+export const requestOtpResetAdminUserPassword = (data) => {
+  const option = {
+    method: "post",
+    url: adminUserEP + "/request-password-reset-otp",
+    data,
+  };
+  return apiProcessor(option);
+};
+//reset user password
+export const resetAdminUserPassword = (data) => {
+  const option = {
+    method: "patch",
+    url: adminUserEP + "/reset-password",
+    data,
+  };
+  return apiProcessor(option);
+};
 //fetch new accessJWT
 export const getNewAccessJWT = async () => {
   const token = localStorage.getItem("refreshJWT");

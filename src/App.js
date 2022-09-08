@@ -13,6 +13,7 @@ import PaymentMethod from "./pages/payment-method/PaymentMethod";
 import NewProduct from "./pages/products/NewProduct";
 import EditProduct from "./pages/products/EditProduct";
 import AdminProfile from "./pages/admin-profile/AdminProfile";
+import ResetPassword from "./pages/login/ResetPassword";
 function App() {
   return (
     <div className="App">
@@ -85,6 +86,7 @@ function App() {
             path="/admin/verify-email"
             element={<EmailVerification />}
           ></Route>
+          <Route path="/reset-password" element={<ResetPassword />}></Route>
         </Routes>
       </BrowserRouter>
       <ToastContainer />

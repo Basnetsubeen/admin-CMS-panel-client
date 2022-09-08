@@ -35,8 +35,8 @@ const Header = () => {
             <Nav className="ms-auto">
               {user._id ? (
                 <>
-                  <Link to="/" className="nav-link">
-                    <i class="fa-duotone fa-user"></i>
+                  <Link to="/admin-profile" className="nav-link">
+                    <i class="fa-solid fa-user"></i> Profile
                   </Link>
                   <Link to="/" className="nav-link" onClick={handleOnLogout}>
                     Logout

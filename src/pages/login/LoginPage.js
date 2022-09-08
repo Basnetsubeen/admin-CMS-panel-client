@@ -68,6 +68,9 @@ const LoginPage = () => {
               Login
             </Button>
           </Form>
+          <div className="text-end py-3">
+            Forgot <a href="/reset-password">Password</a> ?
+          </div>
         </div>
       </Container>
       <Footer />
